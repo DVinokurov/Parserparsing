@@ -10,6 +10,15 @@ def get_html(url, params=None):
 
 def get_content(html):
     soup = BeautifulSoup(html,'html.parser')
+    items = soup.find_all('div', class_= 'ticket-title')
+
+
+    cars = []
+    for item in items:
+        cars.append({
+            'title': item.find('a', class_='address').get_text()
+        })
+    print(cars)
 
 def parse():
     html = get_html(URL)
@@ -17,14 +26,5 @@ def parse():
         get_content(html.text)
     else:
         print('Error')
-
-def parse():
-    html = get_html(URL)
-    if html.status_code == 200:
-        print(html.text)
-    else:
-        print('Error')
-
-
 
 parse()
